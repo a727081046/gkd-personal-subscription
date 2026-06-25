@@ -1,0 +1,39 @@
+name: Update GKD subscription
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '25 20 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-gkd-subscription
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run update
+
+      - name: Commit updated subscription
+        run: |
+          if git diff --quiet; then
+            echo "No subscription changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add upstream/gkd-subscription.json5 dist/
+          git commit -m "chore: update GKD subscription"
+          git push

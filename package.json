@@ -1,0 +1,14 @@
+{
+  "name": "gkd-personal-subscription",
+  "private": true,
+  "version": "1.0.0",
+  "packageManager": "npm@10",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "update": "node scripts/update.mjs"
+  },
+  "dependencies": {
+    "json5": "^2.2.3"
+  }
+}
