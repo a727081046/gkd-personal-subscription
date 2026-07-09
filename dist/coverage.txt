@@ -1,9 +1,9 @@
 规则来源: 梦念逍遥のGKD订阅
-来源版本: v75
+来源版本: v76
 来源地址: https://registry.npmmirror.com/gkd-subscription/latest/files
 清单应用数: 161
 匹配应用数: 42
-应用规则组数: 220
+应用规则组数: 222
 未匹配应用数: 119
 
 未匹配包名:
