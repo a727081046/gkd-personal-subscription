@@ -1,8 +1,8 @@
 {
   id: 2026062501,
   name: '个人手机 GKD 订阅',
-  version: 76,
-  author: 'Codex（规则来源：梦念逍遥のGKD订阅 v76）',
+  version: 77,
+  author: 'Codex（规则来源：梦念逍遥のGKD订阅 v77）',
   updateUrl: 'https://raw.githubusercontent.com/a727081046/gkd-personal-subscription/main/dist/personal-gkd.json5',
   checkUpdateUrl: 'https://raw.githubusercontent.com/a727081046/gkd-personal-subscription/main/dist/personal-gkd.version.json5',
   supportUri: 'https://github.com/MengNianxiaoyao/gkd-subscription',
@@ -299,6 +299,20 @@
             },
           ],
         },
+        {
+          key: 3,
+          name: '局部广告-首页卡片',
+          desc: '邮件页顶部[试用Google Woekspace]',
+          rules: [
+            {
+              fastQuery: true,
+              activityIds: 'com.google.android.gm.ui.MailActivityGmail',
+              matches: 'Button - View[desc=""] < @View[childCount=2][clickable=true][width=102 && height=102][visibleToUser=true] - TextView <n View[childCount>5 && childCount<10] <<3 ComposeView - LinearLayout <<2 [vid="thread_list_view"]',
+              snapshotUrls: 'https://i.gkd.li/i/30378474',
+            },
+          ],
+          enable: false,
+        },
       ],
     },
     {
@@ -501,6 +515,14 @@
                 'https://i.gkd.li/i/16549500',
                 'https://i.gkd.li/i/16555184',
               ],
+            },
+            {
+              key: 5,
+              name: '空间相册内广告',
+              fastQuery: true,
+              activityIds: 'com.qzone.reborn.base.QZoneShellActivity',
+              matches: '@ImageView[clickable=true][width<87] <2 [visibleToUser=true] - [childCount=3] >2 [text="广告"]',
+              snapshotUrls: 'https://i.gkd.li/i/30869035',
             },
           ],
           enable: false,
@@ -1327,10 +1349,23 @@
           name: '功能类-自动点击"显示更多帖子"',
           desc: '点击时间线底部的"显示更多帖子"按钮',
           enable: false,
-          fastQuery: true,
-          activityIds: 'com.twitter.app.main.MainActivity',
-          rules: '@FrameLayout[clickable=true] > [text="显示更多帖子"]',
-          snapshotUrls: 'https://i.gkd.li/import/14189847',
+          rules: [
+            {
+              key: 0,
+              fastQuery: true,
+              activityIds: 'com.twitter.app.main.MainActivity',
+              matches: '@FrameLayout[clickable=true] > [text="显示更多帖子"]',
+              exampleUrls: 'https://m.gkd.li/57941037/7efa8af7-90d3-42b4-bf5d-3d83775f175a',
+              snapshotUrls: 'https://i.gkd.li/i/14189847',
+            },
+            {
+              key: 1,
+              activityIds: 'com.x.android.main.MainActivity',
+              matches: '@[clickable=true] > [visibleToUser=true][text="显示更多帖子"][left>300]',
+              snapshotUrls: 'https://i.gkd.li/i/30151597',
+              excludeSnapshotUrls: 'https://i.gkd.li/i/30175825',
+            },
+          ],
         },
       ],
     },
@@ -1752,6 +1787,32 @@
               key: 1,
               matches: 'RelativeLayout[childCount=2] > @RelativeLayout[childCount=1][clickable=true] > ImageView',
               snapshotUrls: 'https://i.gkd.li/i/13060892',
+            },
+          ],
+          enable: false,
+        },
+        {
+          key: 4,
+          name: '局部广告-游戏类推广',
+          desc: '首页,游戏公测/上线等推广,点击x掉',
+          fastQuery: true,
+          activityIds: '.tblauncher.MainTabActivity',
+          rules: [
+            {
+              key: 0,
+              matches: '@ImageView <2 [childCount=2] <4 [index=0][childCount=4] +(1,2) FrameLayout > [text*="定档" || text*="预约" || text*="测试"][text*="《"]',
+              snapshotUrls: [
+                'https://i.gkd.li/i/30164473',
+                'https://i.gkd.li/i/30164474',
+                'https://i.gkd.li/i/30164475',
+                'https://i.gkd.li/i/30165036',
+                'https://i.gkd.li/i/30346796',
+              ],
+            },
+            {
+              key: 1,
+              matches: '@ImageView <2 [childCount=2] <4 [index=0][childCount=4] +n [childCount>3] > [text="权限" || text="隐私" || text="功能"] -(1,2,3) [text*="有限公司"]',
+              snapshotUrls: 'https://i.gkd.li/i/30164269',
             },
           ],
           enable: false,
@@ -4426,6 +4487,7 @@
                 'com.taobao.android.tbabilitykit.pop.StdPopContainerActivity',
                 'com.taobao.android.detail.wrapper.activity.DetailActivity',
                 'com.alibaba.triver.container.TriverMainActivity',
+                'com.alibaba.android.ultron.vfw.weex2.highPerformance.widget.UltronTradeHybridActivity',
               ],
               fastQuery: true,
               matches: '@[desc="关闭按钮"] - [vid="poplayer_native_state_id"]',
@@ -4440,6 +4502,7 @@
                 'https://i.gkd.li/i/13198239',
                 'https://i.gkd.li/i/14905372',
                 'https://i.gkd.li/i/22319206',
+                'https://i.gkd.li/i/30856922',
               ],
             },
             {
@@ -4564,6 +4627,13 @@
               matches: 'Dialog > Image[text.length>40] + Button[text="关闭"]',
               snapshotUrls: 'https://i.gkd.li/i/26164501',
             },
+            {
+              key: 15,
+              fastQuery: true,
+              activityIds: 'com.taobao.android.tbabilitykit.pop.StdPopContainerActivity',
+              matches: 'Image[text*=".jpg"][width<150 && height<150] < [visibleToUser=true] < @View[clickable=true][childCount=1] <<n FrameLayout[id=null] - [vid="layermanager_penetrate_webview_container_id"]',
+              snapshotUrls: 'https://i.gkd.li/i/30710740',
+            },
           ],
         },
         {
@@ -4662,7 +4732,7 @@
             'com.taobao.android.tbabilitykit.pop.StdPopContainerActivity',
             'com.taobao.tao.TBMainActivity',
           ],
-          rules: '@Image[childCount=0][visibleToUser=true][text!=null] <n View >(1,2) [text*="消息通知" || text*="系统通知"][visibleToUser=true] <<n [vid="poplayer_inner_view"]',
+          rules: '@Image[childCount=0][visibleToUser=true][text!=null] <n View >(1,2) [visibleToUser=true][text^="开启" || text*="消息"][text*="通知"] <<n [vid="poplayer_inner_view"]',
           snapshotUrls: [
             'https://i.gkd.li/import/13197594',
             'https://i.gkd.li/import/13222946',
@@ -4672,6 +4742,7 @@
             'https://i.gkd.li/i/15104645',
             'https://i.gkd.li/i/18407606',
             'https://i.gkd.li/i/21789921',
+            'https://i.gkd.li/i/30726795',
           ],
         },
         {
@@ -5523,20 +5594,21 @@
               key: 1,
               anyMatches: [
                 '@[desc^="未选中" || desc^="未選定" || desc^="Unselected"][visibleToUser=true] + [text="原图" || text="原圖" || text="Full Image"]',
-                '@[desc^="未选中" || desc^="未選定" || desc^="Unselected"][visibleToUser=true]',
+                '[desc^="未选中" || desc^="未選定" || desc^="Unselected"][!(desc*="选择")][text=null][visibleToUser=true]',
               ],
               snapshotUrls: [
                 'https://i.gkd.li/i/16987145',
                 'https://i.gkd.li/i/16987144',
                 'https://i.gkd.li/i/18413281',
                 'https://i.gkd.li/i/14661734',
-                'https://i.gkd.li/i/19625049',
                 'https://i.gkd.li/i/27852612',
+                'https://i.gkd.li/i/19625049',
               ],
               excludeSnapshotUrls: [
                 'https://i.gkd.li/i/16987141',
                 'https://i.gkd.li/i/16987147',
                 'https://i.gkd.li/i/27852606',
+                'https://i.gkd.li/i/29746331',
               ],
             },
           ],
@@ -5976,29 +6048,76 @@
           key: 5,
           name: '分段广告-信息流广告',
           desc: '通过长按然后点击关闭按钮来移除信息流中的广告',
-          enable: false,
-          activityIds: 'com.idlefish.flutterbridge.flutterboost.boost.FishFlutterBoostActivity',
+          fastQuery: true,
+          forcedTime: 100000,
           rules: [
             {
-              key: 0,
-              matches: '@[clickable=true] > [desc$="广告"]',
-              excludeMatches: '@[clickable=true] > [desc^="反馈成功"]',
+              key: 1,
               action: 'longClick',
+              activityIds: '.search_implement.SearchResultActivity',
+              matches: '@[longClickable=true] >3 [text="广告"][visibleToUser=true]',
+              snapshotUrls: 'https://i.gkd.li/i/19603954',
+              exampleUrls: 'https://e.gkd.li/ca42e088-6fae-4402-a000-06418bf054cf',
+            },
+            {
+              key: 2,
+              action: 'longClick',
+              activityIds: [
+                '.maincontainer.activity.MainActivity',
+                '.detail.DetailActivity',
+              ],
+              matches: '@[longClickable=true][childCount=0][height>width] < [childCount>1] >(1,4) [text="广告"][visibleToUser=true]',
               snapshotUrls: [
-                'https://i.gkd.li/i/14723597',
-                'https://i.gkd.li/i/14723718',
+                'https://i.gkd.li/i/19604324',
+                'https://i.gkd.li/i/29751786',
+                'https://i.gkd.li/i/29753749',
+              ],
+              excludeSnapshotUrls: 'https://i.gkd.li/i/29753324',
+              exampleUrls: 'https://e.gkd.li/738c623e-58fe-45a1-9a28-957f0f812c72',
+            },
+            {
+              key: 3,
+              action: 'longClick',
+              activityIds: 'com.idlefish.flutterbridge.flutterboost.boost.FishFlutterBoostActivity',
+              matches: 'View[desc$="广告"][longClickable=true][visibleToUser=true][childCount>2]',
+              snapshotUrls: 'https://i.gkd.li/i/19593497',
+              excludeSnapshotUrls: 'https://i.gkd.li/i/19604467',
+            },
+            {
+              key: 20,
+              name: '②点击[引起不适]',
+              preKeys: [
+                1,
+                2,
+                3,
+                20,
+              ],
+              actionCd: 500,
+              actionDelay: 50,
+              activityIds: [
+                'com.idlefish.flutterbridge.flutterboost.boost.FishFlutterBoostActivity',
+                'com.idlefish.flutterbridge.flutterboost.boost.FishFlutterBoostTransparencyActivity',
+              ],
+              matches: '[desc="引起不适"][visibleToUser=true]',
+              snapshotUrls: [
+                'https://i.gkd.li/i/19593500',
+                'https://i.gkd.li/i/19603913',
+                'https://i.gkd.li/i/19604317',
+                'https://i.gkd.li/i/29751857',
               ],
             },
             {
-              key: 1,
-              preKeys: 0,
-              matches: 'View[childCount=6] > ImageView[index=1][visibleToUser=true]',
-              snapshotUrls: [
-                'https://i.gkd.li/i/14723632',
-                'https://i.gkd.li/i/16486792',
+              key: 21,
+              name: '②点击[不感兴趣]',
+              preKeys: [
+                2,
               ],
+              activityIds: '.maincontainer.activity.MainActivity',
+              matches: '@[clickable=true] +2 [text="商品不感兴趣"]',
+              snapshotUrls: 'https://i.gkd.li/i/29753752',
             },
           ],
+          enable: false,
         },
         {
           key: 6,
@@ -6027,8 +6146,12 @@
           rules: [
             {
               activityIds: 'com.idlefish.flutterbridge.flutterboost.boost.FishFlutterBoostActivity',
-              matches: 'View[childCount=2] > @View[clickable=true] + [desc="原图"]',
-              snapshotUrls: 'https://i.gkd.li/i/18824808',
+              matches: '[clickable=true][desc="原图"]',
+              snapshotUrls: [
+                'https://i.gkd.li/i/18824808',
+                'https://i.gkd.li/i/30770701',
+                'https://i.gkd.li/i/30770836',
+              ],
             },
           ],
           enable: false,
@@ -6446,7 +6569,7 @@
           rules: [
             {
               key: 0,
-              matches: '@[(name$=".Image"&&text.length=0)||((text^="暂不升级"||text^="放弃升级")||text="关闭")][visibleToUser=true][desc.length=null] <<n * <n * > * >n [((text^="同意")&&((text*="协议并"||text*="升级并")))&&(text$="确认交易"||text$="升级"||text$="开通"||text*="刷脸"||text$="付款")||text="确认"||text="立即领取"||text="立即开通"]',
+              matches: '@[(name$=".Image"&&text.length=0)||((text^="暂不升级"||text^="放弃升级"||text^="不感兴趣")||text="关闭")][visibleToUser=true][desc.length=null] <<n * <n * > * >n [((text^="同意")&&((text*="协议并"||text*="升级并")))&&(text$="确认交易"||text$="升级"||text$="开通"||text*="刷脸"||text$="付款")||text="确认"||text="立即领取"||text="立即开通"||text="确认开通"]',
               snapshotUrls: [
                 'https://i.gkd.li/import/12737055',
                 'https://i.gkd.li/import/13915022',
@@ -6468,6 +6591,7 @@
                 'https://i.gkd.li/i/23455533',
                 'https://i.gkd.li/i/25000603',
                 'https://i.gkd.li/i/27007114',
+                'https://i.gkd.li/i/30699230',
               ],
               excludeSnapshotUrls: [
                 'https://i.gkd.li/i/19478718',
@@ -6669,10 +6793,10 @@
           name: '全屏广告-弹窗广告',
           desc: '关闭全屏弹窗广告',
           enable: false,
+          fastQuery: true,
           rules: [
             {
               key: 0,
-              fastQuery: true,
               activityIds: 'com.eg.android.AlipayGphone.AlipayLogin',
               matches: '@ImageView[desc="关闭"][clickable=true] < LinearLayout - [id="com.alipay.mobile.advertisement:id/standardlayer_contentview"][desc="推荐广告"]',
               snapshotUrls: [
@@ -6682,13 +6806,22 @@
             },
             {
               key: 1,
-              activityIds: 'com.alipay.mobile.nebulax.integration.mpaas.activity.NebulaActivity$Main',
-              matches: 'WebView > View > View > View > View > @TextView[clickable=true][visibleToUser=true][text=""] <<n [id="com.alipay.mobile.nebula:id/h5_pc_container"]',
-              snapshotUrls: 'https://i.gkd.li/i/16812751',
+              forcedTime: 10000,
+              activityIds: [
+                'com.alipay.mobile.nebulax.integration.mpaas.activity.NebulaActivity$Main',
+                'com.alipay.mobile.nebulax.xriver.activity.XRiverActivity',
+              ],
+              matches: '@TextView[id=desc][text=""][visibleToUser=true][width<110][height<110][top>getPrev(1).height.div(2)][left<getPrev(1).width.div(2)][right>getPrev(1).width.div(2)] <(2,3) View[childCount>1] <<n [id="com.alipay.mobile.nebula:id/h5_pc_container"]',
+              snapshotUrls: [
+                'https://i.gkd.li/i/16812751',
+                'https://i.gkd.li/i/29666442',
+                'https://i.gkd.li/i/29814861',
+                'https://i.gkd.li/i/30511870',
+              ],
+              excludeSnapshotUrls: 'https://i.gkd.li/i/29814461',
             },
             {
               key: 2,
-              fastQuery: true,
               activityIds: 'com.alipay.mobile.nebulax.xriver.activity.XRiverActivity',
               matches: '@[text*="跳过"] + [text^="账单分期还"][visibleToUser=true] <<n [id="com.alipay.mobile.nebula:id/h5_pc_container"]',
               snapshotUrls: 'https://i.gkd.li/i/18409779',
@@ -6703,7 +6836,7 @@
             {
               key: 4,
               activityIds: 'com.alipay.mobile.nebulax.xriver.activity.XRiverActivity',
-              matches: 'Image[text="关闭弹屏"]',
+              matches: 'Image[visibleToUser=true][text="关闭弹屏"]',
               snapshotUrls: 'https://i.gkd.li/i/22531246',
             },
             {
@@ -6727,7 +6860,6 @@
             },
             {
               key: 6,
-              fastQuery: true,
               activityIds: '.AlipayLogin',
               matches: '@[text="我知道了"][clickable=true] -n [text^="用碰一下支付"]',
               snapshotUrls: 'https://i.gkd.li/i/24563264',
