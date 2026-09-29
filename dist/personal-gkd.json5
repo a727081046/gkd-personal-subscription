@@ -1,8 +1,8 @@
 {
   id: 2026062501,
   name: '个人手机 GKD 订阅',
-  version: 77,
-  author: 'Codex（规则来源：梦念逍遥のGKD订阅 v77）',
+  version: 78,
+  author: 'Codex（规则来源：梦念逍遥のGKD订阅 v78）',
   updateUrl: 'https://raw.githubusercontent.com/a727081046/gkd-personal-subscription/main/dist/personal-gkd.json5',
   checkUpdateUrl: 'https://raw.githubusercontent.com/a727081046/gkd-personal-subscription/main/dist/personal-gkd.version.json5',
   supportUri: 'https://github.com/MengNianxiaoyao/gkd-subscription',
@@ -529,47 +529,65 @@
         },
         {
           key: 2,
-          name: '分段广告-好友动态广告卡片',
-          desc: '关闭好友动态中的广告卡片',
+          name: '分段广告-广告卡片菜单',
+          desc: '通过广告卡片菜单关闭好友动态、小世界评论区和钱包场景中的广告',
           enable: false,
-          fastQuery: true,
-          activityIds: [
-            'com.qzone.reborn.feedpro.activity.QzoneFriendFeedProActivity',
-            '.activity.SplashActivity',
-            '.guild.base.QPublicFragmentActivityForMainWebActivity',
-          ],
           rules: [
             {
               key: 0,
+              name: '①点击[广告]',
+              fastQuery: true,
               activityIds: [
                 'com.qzone.reborn.feedpro.activity.QzoneFriendFeedProActivity',
                 '.guild.base.QPublicFragmentActivityForMainWebActivity',
+                'com.qzone.reborn.base.QZoneShellActivity',
               ],
               matches: '@[clickable=true] > [text="广告"][visibleToUser=true]',
               snapshotUrls: [
                 'https://i.gkd.li/i/21947672',
                 'https://i.gkd.li/i/24404962',
+                'https://i.gkd.li/i/28888622',
               ],
             },
             {
               key: 1,
+              fastQuery: true,
               activityIds: '.activity.SplashActivity',
               matches: '@[desc="更多"][clickable=true] - [desc="广告"][visibleToUser=true] - LinearLayout > [text="今天"]',
               snapshotUrls: 'https://i.gkd.li/i/24381585',
+            },
+            {
+              key: 2,
+              fastQuery: true,
+              activityIds: 'com.qzone.reborn.layer.part.QzoneFeedProGalleryActivity',
+              matches: '[text="广告"][clickable=true]',
+              snapshotUrls: 'https://i.gkd.li/i/30876372',
             },
             {
               key: 50,
               preKeys: [
                 0,
                 1,
+                2,
               ],
               name: '点击[关闭]此条广告',
+              fastQuery: true,
+              activityIds: [
+                'com.qzone.reborn.feedpro.activity.QzoneFriendFeedProActivity',
+                '.guild.base.QPublicFragmentActivityForMainWebActivity',
+                'com.qzone.reborn.layer.part.QzoneFeedProGalleryActivity',
+                'com.qzone.reborn.base.QZoneShellActivity',
+                '.activity.SplashActivity',
+              ],
               matches: '@[clickable=true] >(1,2) [text^="关闭"][text*="条"][text.length<10]',
               snapshotUrls: [
                 'https://i.gkd.li/i/21947698',
                 'https://i.gkd.li/i/24381598',
                 'https://i.gkd.li/i/24406932',
                 'https://i.gkd.li/i/26997293',
+                'https://i.gkd.li/i/28888643',
+                'https://i.gkd.li/i/28942736',
+                'https://i.gkd.li/i/30876374',
               ],
             },
             {
@@ -578,8 +596,80 @@
                 50,
               ],
               name: '点击[直接关闭]',
+              fastQuery: true,
+              activityIds: [
+                'com.qzone.reborn.feedpro.activity.QzoneFriendFeedProActivity',
+                '.guild.base.QPublicFragmentActivityForMainWebActivity',
+                'com.qzone.reborn.layer.part.QzoneFeedProGalleryActivity',
+                'com.qzone.reborn.base.QZoneShellActivity',
+                '.activity.SplashActivity',
+              ],
               matches: '[text="直接关闭"][clickable=true]',
-              snapshotUrls: 'https://i.gkd.li/i/26997174',
+              snapshotUrls: [
+                'https://i.gkd.li/i/26997174',
+                'https://i.gkd.li/i/28942737',
+                'https://i.gkd.li/i/30876376',
+              ],
+            },
+            {
+              key: 101,
+              name: '小世界评论区-点击[广告]',
+              activityIds: [
+                'com.tencent.mobileqq.activity.SplashActivity',
+                'com.tencent.biz.qqcircle.activity.QCircleFolderActivity',
+              ],
+              matches: 'RelativeLayout[childCount=5] > @LinearLayout[clickable=true][childCount=2][id!=null] > TextView[text="广告"][id!=null]',
+              snapshotUrls: 'https://i.gkd.li/import/12847819',
+            },
+            {
+              key: 102,
+              preKeys: 101,
+              name: '小世界评论区-点击[关闭此条广告]',
+              activityIds: [
+                'com.tencent.mobileqq.activity.SplashActivity',
+                'com.tencent.biz.qqcircle.activity.QCircleFolderActivity',
+              ],
+              matches: '@LinearLayout[clickable=true] > TextView[text="关闭此条广告"]',
+              snapshotUrls: 'https://i.gkd.li/import/12847821',
+            },
+            {
+              key: 103,
+              name: '钱包页-点击[广告]',
+              fastQuery: true,
+              activityIds: [
+                'com.tencent.mobileqq.activity.SplashActivity',
+                'cooperation.qwallet.plugin.QWalletToolFragmentActivity',
+              ],
+              matches: 'ViewGroup[childCount=6] > [text="广告"]',
+              snapshotUrls: [
+                'https://i.gkd.li/import/13695087',
+              ],
+            },
+            {
+              key: 104,
+              name: '钱包页-点击[广告]父节点',
+              fastQuery: true,
+              activityIds: [
+                'com.tencent.mobileqq.activity.SplashActivity',
+                'cooperation.qwallet.plugin.QWalletToolFragmentActivity',
+              ],
+              matches: '@View[visibleToUser=true] > [text="广告"]',
+              snapshotUrls: 'https://i.gkd.li/import/14231489',
+            },
+            {
+              preKeys: [
+                103,
+                104,
+              ],
+              key: 105,
+              name: '钱包页-点击[关闭此条广告]',
+              fastQuery: true,
+              activityIds: [
+                'com.tencent.mobileqq.activity.SplashActivity',
+                'cooperation.qwallet.plugin.QWalletToolFragmentActivity',
+              ],
+              matches: '@LinearLayout > [text="关闭此条广告"]',
+              snapshotUrls: 'https://i.gkd.li/import/13699701',
             },
           ],
         },
@@ -915,28 +1005,6 @@
           ],
         },
         {
-          key: 12,
-          name: '分段广告-QQ小世界评论区广告',
-          desc: '点击广告-弹出原因框-关闭此条广告',
-          enable: false,
-          activityIds: [
-            'com.tencent.mobileqq.activity.SplashActivity',
-            'com.tencent.biz.qqcircle.activity.QCircleFolderActivity',
-          ],
-          rules: [
-            {
-              key: 0,
-              matches: 'RelativeLayout[childCount=5] > @LinearLayout[clickable=true][childCount=2][id!=null] > TextView[text="广告"][id!=null]',
-              snapshotUrls: 'https://i.gkd.li/import/12847819',
-            },
-            {
-              preKeys: 0,
-              matches: '@LinearLayout[clickable=true] > TextView[text="关闭此条广告"]',
-              snapshotUrls: 'https://i.gkd.li/import/12847821',
-            },
-          ],
-        },
-        {
           key: 13,
           name: '全屏广告-QQ小程序开屏广告',
           desc: '点击跳过QQ小程序的开屏广告',
@@ -960,40 +1028,6 @@
                 'https://i.gkd.li/i/12919195',
                 'https://i.gkd.li/i/15130235',
               ],
-            },
-          ],
-        },
-        {
-          key: 20,
-          name: '分段广告-钱包页卡片广告',
-          desc: '点击关闭钱包页面的卡片广告',
-          enable: false,
-          fastQuery: true,
-          activityIds: [
-            'com.tencent.mobileqq.activity.SplashActivity',
-            'cooperation.qwallet.plugin.QWalletToolFragmentActivity',
-          ],
-          rules: [
-            {
-              key: 0,
-              matches: 'ViewGroup[childCount=6] > [text="广告"]',
-              snapshotUrls: [
-                'https://i.gkd.li/import/13695087',
-              ],
-            },
-            {
-              key: 1,
-              matches: '@View[visibleToUser=true] > [text="广告"]',
-              snapshotUrls: 'https://i.gkd.li/import/14231489',
-            },
-            {
-              preKeys: [
-                0,
-                1,
-              ],
-              key: 2,
-              matches: '@LinearLayout > [text="关闭此条广告"]',
-              snapshotUrls: 'https://i.gkd.li/import/13699701',
             },
           ],
         },
@@ -1164,51 +1198,38 @@
           rules: [
             {
               key: 0,
-              matches: '[text="推荐"] < * < @[clickable=true] -2 [text="空友爱看"]',
-              snapshotUrls: 'https://i.gkd.li/i/27521340',
+              name: '①更多操作',
+              matches: '@[desc="更多操作"][clickable=true][visibleToUser=true] <3 * +4 * >5 [text="空友爱看"]',
+              snapshotUrls: 'https://i.gkd.li/i/32656065',
             },
             {
               key: 1,
-              preKeys: 0,
-              matches: '@[clickable=true] >2 [text="关闭推荐"]',
-              snapshotUrls: 'https://i.gkd.li/i/27521350',
-            },
-          ],
-        },
-        {
-          key: 30,
-          name: '分段广告-空友爱看内的广告',
-          desc: '点击[广告],点击[关闭这条],点击[直接关闭]',
-          enable: false,
-          fastQuery: true,
-          activityIds: 'com.qzone.reborn.base.QZoneShellActivity',
-          rules: [
-            {
-              key: 0,
-              name: '点击[广告]',
-              matches: '@[desc="更多"][clickable=true] > [text="广告"]',
-              snapshotUrls: 'https://i.gkd.li/i/28888622',
-            },
-            {
-              key: 20,
               preKeys: [
                 0,
               ],
-              name: '点击[关闭这条]',
-              matches: '@[clickable=true] > [text="关闭此条广告" || text="关闭这条"]',
-              snapshotUrls: [
-                'https://i.gkd.li/i/28888643',
-                'https://i.gkd.li/i/28942736',
-              ],
+              name: '②不感兴趣',
+              matches: '@[clickable=true] >2 [text="不感兴趣"]',
+              snapshotUrls: 'https://i.gkd.li/i/32656067',
             },
             {
-              key: 50,
+              key: 2,
               preKeys: [
-                20,
+                1,
               ],
-              name: '点击[直接关闭]',
-              matches: '[text="直接关闭"][clickable=true]',
-              snapshotUrls: 'https://i.gkd.li/i/28942737',
+              name: '③选择原因',
+              activityIds: '.activity.QPublicTransFragmentActivity',
+              matches: '[desc="没有我想看的类型 未选中"]',
+              snapshotUrls: 'https://i.gkd.li/i/32656073',
+            },
+            {
+              key: 3,
+              preKeys: [
+                2,
+              ],
+              name: '④提交',
+              activityIds: '.activity.QPublicTransFragmentActivity',
+              matches: '[desc$="已选中"] +n * > [desc="提交"]',
+              snapshotUrls: 'https://i.gkd.li/i/32656070',
             },
           ],
         },
@@ -1278,8 +1299,11 @@
             {
               key: 2,
               activityIds: 'com.x.android.main.MainActivity',
-              matches: '@ImageView[desc="发帖选项"] - [visibleToUser=true][text="Ad"]',
-              snapshotUrls: 'https://i.gkd.li/i/29085434',
+              matches: '[text="Ad" || getChild(0).text="已推广"] +(1,4) ImageView[visibleToUser=true][desc="发帖选项"]',
+              snapshotUrls: [
+                'https://i.gkd.li/i/29085434',
+                'https://i.gkd.li/i/32325884',
+              ],
             },
             {
               key: 10,
@@ -2139,19 +2163,19 @@
         },
         {
           key: 4,
-          name: '分段广告-视频卡片广告',
-          desc: '关闭视频流中的广告卡片，包括视频底部、评论区中间、详情页下方等位置',
+          name: '分段广告-视频及搜索卡片广告',
+          desc: '关闭视频流和搜索结果中的广告卡片，包括视频底部、评论区中间、详情页下方等位置',
           enable: false,
-          activityIds: [
-            'tv.danmaku.bili.MainActivityV2',
-            'com.bilibili.video.videodetail.VideoDetailsActivity',
-            'com.bilibili.ship.theseus.all.UnitedBizDetailsActivity',
-            'com.bilibili.ship.theseus.detail.UnitedBizDetailsActivity',
-          ],
           rules: [
             {
               key: 0,
               name: '点击广告卡片右侧菜单图标',
+              activityIds: [
+                'tv.danmaku.bili.MainActivityV2',
+                'com.bilibili.video.videodetail.VideoDetailsActivity',
+                'com.bilibili.ship.theseus.all.UnitedBizDetailsActivity',
+                'com.bilibili.ship.theseus.detail.UnitedBizDetailsActivity',
+              ],
               anyMatches: [
                 '[height > prev.bottom.plus(200)] >n [(((desc*="广告"||desc*="来自淘宝")&&desc*="查看")||desc$=",,轻点两下查看详情"||(desc^="【有奖调研】"&&desc.length=22))||(id*="/ad_")][visibleToUser=true] >(2,3,4) @ImageView[visibleToUser=true] < [vid^="more" || id^="tv.danmaku.bili.adbiz:id/more"][visibleToUser=true]',
                 '[id$="ad_tint_frame" || id$="root_container" || id$="constraintLayout"][visibleToUser=true] >(1,2,3) [vid="more" || id="tv.danmaku.bili.adbiz:id/more"]',
@@ -2205,6 +2229,12 @@
               key: 49,
               fastQuery: true,
               name: '点击[我不想看]',
+              activityIds: [
+                'tv.danmaku.bili.MainActivityV2',
+                'com.bilibili.video.videodetail.VideoDetailsActivity',
+                'com.bilibili.ship.theseus.all.UnitedBizDetailsActivity',
+                'com.bilibili.ship.theseus.detail.UnitedBizDetailsActivity',
+              ],
               matches: '[vid="recycler"] >n [text="我不想看"]',
               snapshotUrls: [
                 'https://i.gkd.li/i/17786751',
@@ -2218,7 +2248,13 @@
               key: 50,
               fastQuery: true,
               name: '点击[不感兴趣]',
-              matches: '@[clickable=true] > [text="这个内容" || text="不感兴趣" || text="相似内容过多" || text="up主不感兴趣" || text="此类内容过多" || text="对该up的直播不感兴趣"|| text*="不想看" || text$="质量差"]',
+              activityIds: [
+                'tv.danmaku.bili.MainActivityV2',
+                'com.bilibili.video.videodetail.VideoDetailsActivity',
+                'com.bilibili.ship.theseus.all.UnitedBizDetailsActivity',
+                'com.bilibili.ship.theseus.detail.UnitedBizDetailsActivity',
+              ],
+              matches: '@[clickable=true] > [text="这个内容" || text="不感兴趣" || text="相似内容过多" || text="up主不感兴趣" || text="此类内容过多" || text="对该up的直播不感兴趣"|| text*="不想看" || text$="质量差" || text="减少直播推荐" || text="和当前视频无关"]',
               snapshotUrls: [
                 'https://i.gkd.li/import/13495649',
                 'https://i.gkd.li/i/13742257',
@@ -2250,6 +2286,7 @@
                 'https://i.gkd.li/i/24836772',
                 'https://i.gkd.li/i/24015691',
                 'https://i.gkd.li/i/28659010',
+                'https://i.gkd.li/i/30885647',
               ],
             },
             {
@@ -2259,6 +2296,12 @@
               key: 51,
               name: '点击关闭',
               fastQuery: true,
+              activityIds: [
+                'tv.danmaku.bili.MainActivityV2',
+                'com.bilibili.video.videodetail.VideoDetailsActivity',
+                'com.bilibili.ship.theseus.all.UnitedBizDetailsActivity',
+                'com.bilibili.ship.theseus.detail.UnitedBizDetailsActivity',
+              ],
               anyMatches: [
                 '[vid="close_dislike"][visibleToUser=true]',
                 '@[text="关闭"][clickable=true] -n * <<(2,4) [name$="ComposeView" || name$="FrameLayout"] <n [vid="recycler"]',
@@ -2267,6 +2310,33 @@
                 'https://i.gkd.li/i/17675894',
                 'https://i.gkd.li/i/18587456',
                 'https://i.gkd.li/i/25739074',
+              ],
+            },
+            {
+              key: 52,
+              name: '搜索结果-点击右下角[菜单]',
+              fastQuery: true,
+              activityIds: 'com.bilibili.search2.main.BiliMainSearchActivity',
+              matches: '[vid="ad_tint_frame"] > [vid="more"][clickable=true]',
+              snapshotUrls: [
+                'https://i.gkd.li/i/17269053',
+                'https://i.gkd.li/i/17964354',
+                'https://i.gkd.li/i/28495212',
+              ],
+            },
+            {
+              key: 53,
+              preKeys: [
+                52,
+              ],
+              name: '搜索结果-点击[不感兴趣]',
+              fastQuery: true,
+              activityIds: 'com.bilibili.search2.main.BiliMainSearchActivity',
+              matches: '@[clickable=true] > [text$="不感兴趣" || text*="不想看" || text$="质量差"]',
+              snapshotUrls: [
+                'https://i.gkd.li/i/17269055',
+                'https://i.gkd.li/i/17964356',
+                'https://i.gkd.li/i/22657666',
               ],
             },
           ],
@@ -2325,6 +2395,12 @@
               matches: '@[vid="close"][visibleToUser=true] - [text$="免费领B站大会员"]',
               snapshotUrls: 'https://i.gkd.li/i/18165189',
             },
+            {
+              key: 3,
+              activityIds: 'com.bilibili.ship.theseus.detail.UnitedBizDetailsActivity',
+              matches: '[desc="close"] < @[clickable=true] <3 View <2 [childCount=4] < View <2 View < ComposeView < FrameLayout < [vid="fl_tab_pager_container"]',
+              snapshotUrls: 'https://i.gkd.li/i/31067294',
+            },
           ],
           enable: false,
         },
@@ -2347,9 +2423,11 @@
             },
             {
               key: 1,
+              forcedTime: 120000,
               matches: '@[vid="close" || vid="iv_close"] - [vid="up_avatar" || vid="gift_icon" || vid="follow_container"][visibleToUser=true]',
               snapshotUrls: [
                 'https://i.gkd.li/i/14782965',
+                'https://i.gkd.li/i/32246446',
                 'https://i.gkd.li/i/18046573',
                 'https://i.gkd.li/i/22990105',
               ],
@@ -2369,39 +2447,6 @@
             },
           ],
           enable: false,
-        },
-        {
-          key: 9,
-          name: '分段广告-搜索结果广告',
-          desc: '关闭搜索结果中的广告内容',
-          enable: false,
-          fastQuery: true,
-          activityIds: 'com.bilibili.search2.main.BiliMainSearchActivity',
-          rules: [
-            {
-              key: 1,
-              name: '点击右下角[菜单]',
-              matches: '[vid="ad_tint_frame"] > [vid="more"][clickable=true]',
-              snapshotUrls: [
-                'https://i.gkd.li/i/17269053',
-                'https://i.gkd.li/i/17964354',
-                'https://i.gkd.li/i/28495212',
-              ],
-            },
-            {
-              key: 2,
-              preKeys: [
-                1,
-              ],
-              name: '点击[不感兴趣]',
-              matches: '@[clickable=true] > [text$="不感兴趣" || text*="不想看" || text$="质量差"]',
-              snapshotUrls: [
-                'https://i.gkd.li/i/17269055',
-                'https://i.gkd.li/i/17964356',
-                'https://i.gkd.li/i/22657666',
-              ],
-            },
-          ],
         },
         {
           key: 10,
@@ -2429,6 +2474,7 @@
           key: 11,
           name: '功能类-自动点击评论区的[展开更多评论]',
           desc: '自动点击评论区的[展开更多评论]',
+          enable: false,
           rules: [
             {
               fastQuery: true,
@@ -2447,12 +2493,27 @@
               ],
             },
           ],
+        },
+        {
+          key: 12,
+          name: '全屏广告-完善信息弹窗',
+          desc: '按[返回键]',
           enable: false,
+          rules: [
+            {
+              fastQuery: true,
+              action: 'back',
+              activityIds: '.MainActivityV2',
+              matches: '[vid="design_bottom_sheet"] >2 [vid="title"][text="完善信息，获取精准推荐"]',
+              snapshotUrls: 'https://i.gkd.li/i/31165755',
+            },
+          ],
         },
         {
           key: 18,
           name: '功能类-自动领取会员经验',
           desc: '在会员中心页面自动领取会员经验',
+          enable: false,
           rules: [
             {
               fastQuery: true,
@@ -2465,12 +2526,12 @@
               excludeSnapshotUrls: 'https://i.gkd.li/i/23385023',
             },
           ],
-          enable: false,
         },
         {
           key: 19,
           name: '功能类-自动点击查看原图',
           desc: '浏览图片时自动切换至原图模式',
+          enable: false,
           rules: [
             {
               fastQuery: true,
@@ -2495,7 +2556,6 @@
               ],
             },
           ],
-          enable: false,
         },
         {
           key: 20,
@@ -3788,8 +3848,8 @@
         },
         {
           key: 2,
-          name: '全屏广告-弹窗广告',
-          desc: '关闭各类全屏弹窗广告，包括活动弹窗、红包弹窗等',
+          name: '全屏广告',
+          desc: '关闭活动、红包及下单后出现的各类全屏弹窗广告',
           enable: false,
           rules: [
             {
@@ -3887,6 +3947,23 @@
               activityIds: '.ui.activity.HomeActivity',
               matches: '@ViewGroup[width<86 && height<86][clickable=true][focusable=true][clickable=true] + ViewGroup [text="元"]',
               snapshotUrls: 'https://i.gkd.li/i/25572172',
+            },
+            {
+              name: '下单后出现的弹窗',
+              key: 12,
+              activityIds: [
+                '.activity.NewPageMaskActivity',
+                '.ui.activity.HomeActivity',
+              ],
+              action: 'clickCenter',
+              matches: 'Button[text="关闭弹窗" || desc="关闭弹窗"][clickable=true]',
+              snapshotUrls: [
+                'https://i.gkd.li/i/13927594',
+                'https://i.gkd.li/i/14434154',
+                'https://i.gkd.li/i/14456017',
+                'https://i.gkd.li/i/13308175',
+                'https://i.gkd.li/i/23256823',
+              ],
             },
           ],
         },
@@ -4003,30 +4080,6 @@
               snapshotUrls: [
                 'https://i.gkd.li/i/13925378',
                 'https://i.gkd.li/i/13925380',
-              ],
-            },
-          ],
-        },
-        {
-          key: 12,
-          name: '全屏广告-下单后出现的弹窗',
-          desc: '点击关闭',
-          enable: false,
-          rules: [
-            {
-              key: 0,
-              activityIds: [
-                '.activity.NewPageMaskActivity',
-                '.ui.activity.HomeActivity',
-              ],
-              action: 'clickCenter',
-              matches: 'Button[text="关闭弹窗" || desc="关闭弹窗"][clickable=true]',
-              snapshotUrls: [
-                'https://i.gkd.li/i/13927594',
-                'https://i.gkd.li/i/14434154',
-                'https://i.gkd.li/i/14456017',
-                'https://i.gkd.li/i/13308175',
-                'https://i.gkd.li/i/23256823',
               ],
             },
           ],
@@ -4970,7 +5023,7 @@
         {
           key: 1,
           name: '分段广告-卡片广告',
-          desc: '点击[关闭]-点击[直接关闭]/[不感兴趣]',
+          desc: '点击[关闭]-点击[直接关闭]/[不感兴趣]；搜索页规则触发时会收起输入法',
           rules: [
             {
               key: 0,
@@ -5021,6 +5074,30 @@
                 'https://i.gkd.li/i/16047089',
                 'https://i.gkd.li/i/23771645',
               ],
+            },
+            {
+              key: 91,
+              name: '搜索页-点击广告标记',
+              fastQuery: true,
+              activityIds: '.music.biz.search.activity.SearchActivity',
+              matches: '[vid="adTagView" || vid="adTagViewNew"][clickable=true]',
+              exampleUrls: 'https://e.gkd.li/afb3fc72-7a69-489a-ac5a-7a70f5685667',
+              snapshotUrls: [
+                'https://i.gkd.li/i/16357208',
+                'https://i.gkd.li/i/16357111',
+              ],
+            },
+            {
+              preKeys: [
+                91,
+              ],
+              key: 92,
+              name: '搜索页-直接关闭',
+              fastQuery: true,
+              activityIds: '.music.biz.search.activity.SearchActivity',
+              matches: '[text="直接关闭"]',
+              exampleUrls: 'https://e.gkd.li/1e2b2822-01dd-455f-8991-1b746c61c07c',
+              snapshotUrls: 'https://i.gkd.li/i/16357210',
             },
           ],
           enable: false,
@@ -5139,34 +5216,6 @@
               activityIds: '.module.login.LoginPermissionActivity',
               matches: '[text="授权登录"][clickable=true]',
               snapshotUrls: 'https://i.gkd.li/i/14830218',
-            },
-          ],
-          enable: false,
-        },
-        {
-          key: 16,
-          name: '分段广告-搜索页广告',
-          desc: '该规则触发时会导致输入法收起',
-          fastQuery: true,
-          activityIds: '.music.biz.search.activity.SearchActivity',
-          rules: [
-            {
-              key: 0,
-              matches: '[vid="adTagView" || vid="adTagViewNew"][clickable=true]',
-              exampleUrls: 'https://e.gkd.li/afb3fc72-7a69-489a-ac5a-7a70f5685667',
-              snapshotUrls: [
-                'https://i.gkd.li/i/16357208',
-                'https://i.gkd.li/i/16357111',
-              ],
-            },
-            {
-              preKeys: [
-                0,
-              ],
-              key: 90,
-              matches: '[text="直接关闭"]',
-              exampleUrls: 'https://e.gkd.li/1e2b2822-01dd-455f-8991-1b746c61c07c',
-              snapshotUrls: 'https://i.gkd.li/i/16357210',
             },
           ],
           enable: false,
@@ -5908,21 +5957,23 @@
         },
         {
           key: 22,
-          name: '功能类-付款后自动点击完成/返回商家',
-          desc: '支付完成后自动点击完成或返回商家按钮',
+          name: '功能类-收款付款后自动点击完成/返回',
+          desc: '支付完成后自动点击完成或返回按钮',
           enable: false,
           matchRoot: true,
           fastQuery: true,
           activityIds: [
             'com.tencent.mm.framework.app.UIPageFragmentActivity',
             '.ui.LauncherUI',
+            '.plugin.lite.ui.WxaLiteAppTransparentLiteUI',
+            '.plugin.lite.ui.WxaLiteAppLiteUI',
           ],
           rules: [
             {
               matches: [
-                '[text="支付成功"]',
-                '[text*="￥"||text*="¥"]',
-                '[text="完成"||text="返回商家"]',
+                '[text="支付成功"||text*="已收款"||desc="支付成功"||desc*="已收款"]',
+                '[text*="￥"||text*="¥"||desc*="￥"||desc*="¥"]',
+                '[text="完成"||text="返回商家"||desc="完成"||desc="返回商家"||vid="actionbar_up_indicator"]',
               ],
               snapshotUrls: [
                 'https://i.gkd.li/i/14399355',
@@ -5930,6 +5981,7 @@
                 'https://i.gkd.li/i/14662147',
                 'https://i.gkd.li/i/16215946',
                 'https://i.gkd.li/i/18348017',
+                'https://i.gkd.li/i/31693084',
               ],
               excludeSnapshotUrls: [
                 'https://i.gkd.li/i/14532946',
@@ -6066,11 +6118,12 @@
                 '.maincontainer.activity.MainActivity',
                 '.detail.DetailActivity',
               ],
-              matches: '@[longClickable=true][childCount=0][height>width] < [childCount>1] >(1,4) [text="广告"][visibleToUser=true]',
+              matches: '@[longClickable=true][childCount=0][height>width] < [childCount>1] >(1,3,4) [text="广告"][visibleToUser=true]',
               snapshotUrls: [
                 'https://i.gkd.li/i/19604324',
                 'https://i.gkd.li/i/29751786',
                 'https://i.gkd.li/i/29753749',
+                'https://i.gkd.li/i/31875408',
               ],
               excludeSnapshotUrls: 'https://i.gkd.li/i/29753324',
               exampleUrls: 'https://e.gkd.li/738c623e-58fe-45a1-9a28-957f0f812c72',
@@ -6270,10 +6323,21 @@
           desc: '点击关闭浮窗广告',
           rules: [
             {
+              key: 0,
               fastQuery: true,
               activityIds: 'com.unionpay.activity.UPActivityMain',
               matches: '[vid="close_view"][visibleToUser=true]',
               snapshotUrls: 'https://i.gkd.li/i/20239453',
+            },
+            {
+              key: 1,
+              fastQuery: true,
+              activityIds: '.activity.UPActivityMain',
+              matches: '[vid="frog_float"] >2 [vid="close_view"][clickable=true]',
+              snapshotUrls: [
+                'https://i.gkd.li/i/14586427',
+                'https://i.gkd.li/i/31259720',
+              ],
             },
           ],
           enable: false,
@@ -6592,6 +6656,7 @@
                 'https://i.gkd.li/i/25000603',
                 'https://i.gkd.li/i/27007114',
                 'https://i.gkd.li/i/30699230',
+                'https://i.gkd.li/i/31612291',
               ],
               excludeSnapshotUrls: [
                 'https://i.gkd.li/i/19478718',
