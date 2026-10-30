@@ -1,8 +1,8 @@
 {
   id: 2026062501,
   name: '个人手机 GKD 订阅',
-  version: 78,
-  author: 'Codex（规则来源：梦念逍遥のGKD订阅 v78）',
+  version: 79,
+  author: 'Codex（规则来源：梦念逍遥のGKD订阅 v79）',
   updateUrl: 'https://raw.githubusercontent.com/a727081046/gkd-personal-subscription/main/dist/personal-gkd.json5',
   checkUpdateUrl: 'https://raw.githubusercontent.com/a727081046/gkd-personal-subscription/main/dist/personal-gkd.version.json5',
   supportUri: 'https://github.com/MengNianxiaoyao/gkd-subscription',
@@ -6027,6 +6027,22 @@
       id: 'com.taobao.idlefish',
       name: '闲鱼',
       groups: [
+        {
+          key: 0,
+          name: '开屏广告',
+          fastQuery: true,
+          matchTime: 10000,
+          actionMaximum: 1,
+          resetMatch: 'app',
+          priorityTime: 10000,
+          rules: [
+            {
+              matches: '[text*="跳过"][vid="splash_ad_close"][visibleToUser=true]',
+              snapshotUrls: 'https://i.gkd.li/i/34161773',
+            },
+          ],
+          order: -10,
+        },
         {
           key: 1,
           name: '通知提示',
